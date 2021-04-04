@@ -3,11 +3,11 @@ import prepareUtm from '../../vk/prepareUtm';
 /**
  * Инициализирует гугл тег, необходимо вставить как можно раньше
  * @param {string} gtmCode - Код гугл тега.
- * @param {string} dataLayer - Название слоя с данными.
  * @param {function} actionAfterLoad - Действие после загрузки.
+ * @param {string} dataLayer - Название слоя с данными.
  * @return {Promise}
  */
-const googleGtmInit = async (gtmCode, dataLayer = 'dataLayer', actionAfterLoad = () => {}) => new Promise((resolve) => {
+const googleGtmInit = async (gtmCode, actionAfterLoad = () => {}, dataLayer = 'dataLayer') => new Promise((resolve) => {
     prepareUtm();
 
     window[dataLayer] = window[dataLayer] || [];
