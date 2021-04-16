@@ -29,8 +29,8 @@ const vkStat = async (
 
     const bridgeStatEventResult = await bridgeStatEvent(
         `${category}${delimiter}${action}`,
-        bridgeStatEventParams.screen,
         json,
+        bridgeStatEventParams.screen,
         bridgeStatEventParams.params,
         bridgeStatEventParams.accessToken,
         bridgeStatEventParams.version,
