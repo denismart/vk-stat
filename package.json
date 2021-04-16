@@ -1,9 +1,9 @@
 {
     "name": "vk-stat",
-    "version": "0.1.5",
+    "version": "0.1.7",
     "description": "Function to easy stat vk projects",
     "author": "denismart",
-    "license": "MIT",
+    "license": "GPL",
     "repository": "denismart/vk-stat",
     "scripts": {
         "build": "yarn prepare-folders && yarn test:lint && rm -rf ./dist && rollup --config",
