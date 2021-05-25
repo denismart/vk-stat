@@ -3,19 +3,15 @@ import bridgeStatEvent from '../bridgeStatEvent';
 
 /**
  * Отслеживание гугл и ВК статистики
- * @param {string} category - Название категории.
- * @param {string} action - Название действия.
- * @param {string} label - Название метки.
+ * @param {Object} params - Параметры функции.
+ * @param {string} params.category - Название категории.
+ * @param {string} params.action - Название действия.
+ * @param {string} params.label - Название метки.
  * @param {object} bridgeStatEventParams - Параметры для метода bridgeStatEvent.
  * @param {boolean} isDebug - режим отладки.
  */
-const vkStat = async (
-    category,
-    action,
-    label = undefined,
-    bridgeStatEventParams = {},
-    isDebug = false,
-) => {
+const vkStat = async (params, bridgeStatEventParams = {}, isDebug = false) => {
+    const { category, action, label } = params;
     const delimiter = bridgeStatEventParams.delimiter || '--';
 
     let json = bridgeStatEventParams && bridgeStatEventParams.json
@@ -25,10 +21,10 @@ const vkStat = async (
         json = { ...json, label };
     }
 
-    const googleGtmEventResult = googleGtmEvent(category, action, label);
+    const googleGtmEventResult = googleGtmEvent(category || 'main', action, label);
 
     const bridgeStatEventResult = await bridgeStatEvent(
-        `${category}${delimiter}${action}`,
+        category ? `${category}${delimiter}${action}` : `${action}`,
         json,
         bridgeStatEventParams.screen,
         bridgeStatEventParams.params,

@@ -1,4 +1,4 @@
-import MINI from '../../locals/MINI/index';
+import STATS from '../../locals/STATS/index';
 import getAppHash from '../getAppHash/index';
 
 /**
@@ -15,7 +15,7 @@ const prepareHash = () => {
             const hashKey = hashParts[0];
             const hashValue = hashParts[1] ? hashParts[1] : hashKey;
 
-            MINI.APP_HASH[hashKey] = hashValue;
+            STATS.APP_HASH[hashKey] = hashValue;
         });
     }
 };
