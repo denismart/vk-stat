@@ -16,6 +16,7 @@ const prepareHash = () => {
             const hashValue = hashParts[1] ? hashParts[1] : hashKey;
 
             STATS.APP_HASH[hashKey] = hashValue;
+            STATS.APP_HASH_FULL = hash;
         });
     }
 };
