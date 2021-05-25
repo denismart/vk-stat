@@ -18,7 +18,7 @@
 
 	prepareUtm();
 
-***Важно! Если вы передаете в хеше какие-либо другие данные, кроме UTM-тегов, то перед запуском функции **prepareUtm**, вам необходимо сначала выгрузить нужные вам данные из хеша***
+***Все хэш переменные после этого попадают во внутреннюю переменную библиотеки (STATS.APP_HASH или STATS.APP_HASH_FULL) и могут быть недоступные в хеше, если пытаться их получить из строки запуска, после подготовки UTM.***
 
 ### Использования GTM
 Для инициализации Google Tag Manager вставить **googleGtmInit** как можно ближе к началу инициализации React приложения, например в основной index.js сразу после импортов:
@@ -29,6 +29,7 @@
 
 Чтобы отсылать события используется **googleGtmEvent**:
 
+    googleGtmEvent('', 'action');
     googleGtmEvent('category', 'action');
     googleGtmEvent('category', 'action', 'label');
 
@@ -43,23 +44,28 @@
 
     setVkAccessToken(accessToken);
 
-После можно отправлять события напрямую в ВК, используя **bridgeStatEvent*. Название отправляемого события желательно использовать как ***category--action***. Метку *label* можно передать через json, указав вторым параметром:
+После можно отправлять события напрямую в ВК, используя **bridgeStatEvent**. Название отправляемого события желательно использовать как ***action***. Старый формат записи ***category--action*** Метку *label* можно передать через json, указав вторым параметром:
 
-    bridgeStatEvent('category--action', { label });
+    bridgeStatEvent('action', { label });
+    bridgeStatEvent('category--action', { label });	// Старый формат
 
 ### Одновременное использование GTM + statEvents.addMiniApps
 1. Ициниализируем GTM через **googleGtmInit**
 2. Устанавливаем accessToken через **setVkAccessToken**
-3. Используем **vkStat**, который одновременно отпраляет событие в GTM и VK:
+3. Используем **vkStat**, который одновременно отпраляет событие в GTM и VK (*action* обязательный параметр):
 
-        vkStat('category', 'action');
-        vkStat('category', 'action', 'label');
+        vkStat({ action: 'action' });
+        vkStat({ action: 'action', label: 'label' });
+        vkStat({ category: 'category', action: 'action' });
+        vkStat({ category: 'category', action: 'action', label: 'label' });
 
-    При этом название события для статистики VK сгенерируются автоматически как *category--action*, а **label** (если он указан) упадет сразу в json.
+    При этом название события для статистики VK сгенерируются автоматически как *category--action* (если категорию передать в параметрах), и как *action* (если категорию не передавать в параметрах), а **label** (если он указан) упадет сразу в json.
+
+
 
 Для отладки событий можно использовать следующий код:
 
-    vkStat('category', 'action', 'label', {}, true);
+    vkStat({ category: 'category', action: 'action', label: 'label'}, {}, true);
 
 
 ## Автор
