@@ -24,7 +24,7 @@ const vkStat = async (params, bridgeStatEventParams = {}, isDebug = false) => {
     const googleGtmEventResult = googleGtmEvent(category || 'main', action, label);
 
     const bridgeStatEventResult = await bridgeStatEvent(
-        category ? `${category}${delimiter}${action}` : `${action}`,
+        category ? `${category}${delimiter}${action}_front` : `${action}_front`,
         json,
         bridgeStatEventParams.screen,
         bridgeStatEventParams.params,
